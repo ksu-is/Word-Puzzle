@@ -1,6 +1,10 @@
+__author__ = 'Robbie Barrat'
+
+
 import random
 import string
 
+#here is where I am sizing how big  I want the word puzzle
 class WordSearch:
     def __init__(self, size=15, num_words=10):
         self.size = size
@@ -8,15 +12,18 @@ class WordSearch:
         self.grid = [['' for _ in range(size)] for _ in range(size)]
         self.words = []
 
+#
     def generate(self, word_list):
         self.words = random.sample(word_list, self.num_words)
         self.place_words()
 
         self.fill_remaining()
+
+    
             
     
 
-__author__ = 'Robbie Barrat'
+
 
 
 # Put the words you are trying to find here. All the text you enter should be 100% uppercase or 100% lowercase.
