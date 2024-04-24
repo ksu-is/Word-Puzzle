@@ -1,6 +1,20 @@
 import random
 import string
 
+class WordSearch:
+    def __init__(self, size=15, num_words=10):
+        self.size = size
+        self.num_words = num_words
+        self.grid = [['' for _ in range(size)] for _ in range(size)]
+        self.words = []
+
+    def generate(self, word_list):
+        self.words = random.sample(word_list, self.num_words)
+        self.place_words()
+
+        self.fill_remaining()
+            
+    
 
 __author__ = 'Robbie Barrat'
 
