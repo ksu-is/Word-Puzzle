@@ -1,4 +1,9 @@
+import random
+import string
+
+
 __author__ = 'Robbie Barrat'
+
 
 # Put the words you are trying to find here. All the text you enter should be 100% uppercase or 100% lowercase.
 
