@@ -1,19 +1,25 @@
+{% extends "base.html" %}
 
+{% block title %}Home - Word Search {% endblock %}
 
-
+{% block content %}
 <div class="container-flex">
 
     <div class="left-section">
         <h2>Welcome to the Word Search</h2>
         <p>Are you ready to challenge your mind and have fin with words> Welcome to our exciting Word Search game! </p>
-        
+        <p>In this game, you'll be presented with a grid of letters arranged in rows and columns. Your goal is to find
+            will be hidden in a 15x15 grid, with earch word placed horizonrally, vertically, or diagonally.
+        </p>
+        <p>To play, simply, you can start a new game and challenge yourself with a fresh set of words!</p>
+        <p> Start playing now and test your word-searching skills!</p>
     </div>
 
-
-
-
-
-
-
-
+    <div class="right-section">
+        <h3>Example Word Search</h3>
+        <img src="word_search_example.png" alt="Example Word Search"
+        class="word-search-image">
+     </div>
 </div>
+
+{% endblock %}
