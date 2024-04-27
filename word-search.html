@@ -4,10 +4,70 @@
     Here's the word seach puzzle for you to solve:
 </p>
 
-<table class="word-search">
+<div class="word-search-container">
+    <div class="word-search-grid">
 
-    <tr>
+        <table class="word-search">
 
-        <td class="word" 
-    </tr>
-</table>
+            <tr>
+        
+                <td class="word" id="{{ row_index }}-{{ col_index }}"
+                    onclick="toggeSelected('{{ row_index }}-{{ col_index}}')">{{ grid[row_index][col_index] }}</td>
+                    {% endfor %}
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <div class="words-to-find">
+        <h3> Words to Find:</h3>
+        <ul>
+            {% for word in words}
+            <li>
+                {{ word}}
+            </li>
+            {% endfor %}
+        </ul>
+        <hr />
+    <div id="congratulation-message" class="hidden">
+        <h3>Congratulations</h3>
+        <p>You've successfully found all the words. Great job!</p>
+        <button onclick="reload()">Try Again</button>
+
+         </div>    
+
+
+    </div>
+</div>
+
+<script>
+    var selectedBoxes = [];
+    var words = '{{words}}'
+    const WordCount = words.split(',').length;
+    var wordsFound = 0;
+
+    function toggleSelected(boxid) {
+        id (selectedBoxes.length == 1) {
+            var box1 = selectedBoxes[0].split("-");
+            var box2 = boxid.split("-");
+            var row1 = parseInt(box1[0]);
+            var col1 = parseInt(box2[0]);
+            var row2 = parseInt(box2[0]);
+            var col2 = parseInt(box2[1]);
+
+            var minRow = Math.min(row1, row2);
+            var maxRow = Math.max(row1, row2);
+            var minCol = Math.min(col1, col2);
+            var maxCol = Math.max(col1, col2);
+
+            if (row1 == row2 || col1 col2) {
+                for (var i = Math.min(row1, row2); i <= Math.max(row1, row2) ; i++) {
+                    
+                }
+            }
+        }
+    }
+
+</script>
