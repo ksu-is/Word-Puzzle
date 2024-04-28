@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Word Search - Word Search{% endblock %}
+
+{% block content %}
+
+<h2>Word Search</h2>
+<p>Here's the word search puzzle for you to solve:</p>
+
+<div class="word-search-container">
+    <div class="word-search-grid">
+        <table class="word-search">
+            {% for row_index in range(grid|length) %}
+            <tr>
+                {% for col_index in range(grid[0]|length) %}
+                <td class="word" id="{{ row_index }}-{{ col_index }}"
+                    onclick="toggleSelected('{{ row_index }}-{{ col_index }}')">{{ grid[row_index][col_index] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="words-to-find">
+        <h3>Words to Find:</h3>
+        <ul>
+            {% for word in words %}
+            <li>{{ word }}</li>
+            {% endfor %}
+        </ul>
+        <hr />
+        <div id="congratulation-message" class="hidden">
+            <h3>Congratulations!</h3>
+            <p>You've successfully found all the words. Great job!</p>
+            <button onclick="reload()">Try Again</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var selectedBoxes = [];
+
+    var words = `{{words}}`
+    const wordCount = words.split(',').length;
+    var wordsFound = 0;
+
+    function toggleSelected(boxId) {
+
+        if (selectedBoxes.length === 1) {
+            var box1 = selectedBoxes[0].split("-");
+            var box2 = boxId.split("-");
+            var row1 = parseInt(box1[0]);
+            var col1 = parseInt(box1[1]);
+            var row2 = parseInt(box2[0]);
+            var col2 = parseInt(box2[1]);
+
+            var minRow = Math.min(row1, row2);
+            var maxRow = Math.max(row1, row2);
+            var minCol = Math.min(col1, col2);
+            var maxCol = Math.max(col1, col2);
+
+            if (row1 === row2 || col1 === col2) {
+                for (var i = Math.min(row1, row2); i <= Math.max(row1, row2); i++) {
+                    var id = i + "-" + col1;
+                    if (!selectedBoxes.includes(id)) {
+                        selectedBoxes.push(id);
+                        document.getElementById(id).classList.add('selected');
+                    }
+                }
+                for (var j = Math.min(col1, col2); j <= Math.max(col1, col2); j++) {
+                    var id = row2 + "-" + j;
+                    if (!selectedBoxes.includes(id)) {
+                        selectedBoxes.push(id);
+                        document.getElementById(id).classList.add('selected');
+                    }
+                }
+                sendSelectedBoxes(selectedBoxes);
+                removeSelections(selectedBoxes);
+                selectedBoxes = [];
+            } else if (Math.abs(row1 - row2) === Math.abs(col1 - col2)) {
+                var deltaRow = row2 > row1 ? 1 : -1;
+                var deltaCol = col2 > col1 ? 1 : -1;
+                var row = row1 + deltaRow;
+                var col = col1 + deltaCol;
+                while (row !== row2 && col !== col2) {
+                    var id = row + "-" + col;
+                    if (!selectedBoxes.includes(id)) {
+                        selectedBoxes.push(id);
+                        document.getElementById(id).classList.add('selected');
+                    }
+                    row += deltaRow;
+                    col += deltaCol;
+                }
+                var id = row + "-" + col;
+                if (!selectedBoxes.includes(id)) {
+                    selectedBoxes.push(id);
+                    document.getElementById(id).classList.add('selected');
+                }
+                sendSelectedBoxes(selectedBoxes);
+                removeSelections(selectedBoxes);
+                selectedBoxes = [];
+            } else {
+                removeSelections(selectedBoxes);
+                selectedBoxes = [];
+            }
+        } else {
+            var index = selectedBoxes.indexOf(boxId);
+            if (index === -1) {
+                selectedBoxes.push(boxId);
+                document.getElementById(boxId).classList.add('selected');
+            } else {
+                selectedBoxes.splice(index, 1);
+                document.getElementById(boxId).classList.remove('selected');
+            }
+        }
+
+    }
+
+    function removeSelections(selectedBoxes) {
+        for (var k = 0; k < selectedBoxes.length; k++) {
+            document.getElementById(selectedBoxes[k]).classList.remove('selected');
+        }
+    }
+
+    // Function to send selected box coordinates to the server
+    function sendSelectedBoxes(selectedBoxes) {
+
+        var word = "";
+        for (var i = 0; i < selectedBoxes.length; i++) {
+            var boxId = selectedBoxes[i];
+            var content = document.getElementById(boxId).innerText;
+            word += content;
+        }
+
+        fetch('/check_match', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                word: word
+            })
+        }).then(response => response.json()).then(data => {
+            if (data.match_found) {
+                selectedBoxes.forEach(boxId => {
+                    var cell = document.getElementById(boxId);
+                    cell.classList.remove('selected');
+                    cell.classList.add('match');
+                });
+                if (words == wordCount) {
+                    document.getElementById('congratulation-message').classList.remove('hidden')
+                }
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function reload() {
+        location.reload();
+    }
+
+</script>
+
+{% endblock %}

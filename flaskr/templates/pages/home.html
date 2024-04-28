@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Word Search{% endblock %}
+
+{% block content %}
+<div class="container-flex">
+    <!-- Left section -->
+    <div class="left-section">
+        <h2>Welcome to Word Search</h2>
+        <p>Are you ready to challenge your mind and have fun with words? Welcome to our exciting Word Search game!</p>
+        <p>In this game, you'll be presented with a grid of letters arranged in rows and columns. Your goal is to find
+            specific words hidden within the grid.</p>
+        <p>Each turn, a set of words will be randomly selected from our vast collection of over 100 words. These words
+            will be hidden in a 15x15 grid, with each word placed horizontally, vertically, or diagonally.</p>
+        <p>To play, simply click or tap on the letters in the grid to form the words you've spotted. Once you've found
+            all the words, you can start a new game and challenge yourself with a fresh set of words!</p>
+        <p>Start playing now and test your word-searching skills!</p>
+    </div>
+
+    <!-- Right section -->
+    <div class="right-section">
+        <h3>Example Word Search</h3>
+        <img src="{{ url_for('static', filename='images/word_search_example.png') }}" alt="Example Word Search"
+            class="word-search-image">
+    </div>
+</div>
+{% endblock %}

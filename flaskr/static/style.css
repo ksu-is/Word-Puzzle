@@ -1,0 +1,115 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0efeb;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 20px auto;
+}
+
+.container-flex {
+  align-items: flex-start;
+  display: flex;
+  max-width: 1200px;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 20px auto;
+}
+
+.left-section {
+  width: 45%;
+}
+
+.right-section {
+  width: 45%;
+}
+
+.word-search-image {
+  width: 100%;
+  max-width: 400px;
+}
+header {
+  background-color: #e8d1c5;
+  padding: 20px;
+  text-align: center;
+}
+nav {
+  background-color: #eddcd2;
+  padding: 10px 0;
+  text-align: center;
+}
+nav a {
+  text-decoration: none;
+  color: #333;
+  margin: 0 10px;
+}
+nav a:hover {
+  color: #000;
+}
+footer {
+  background-color: #eeddd3;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.word-search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.words-to-find {
+  width: 30%;
+}
+
+.word-search-grid {
+  width: 70%;
+}
+
+.word-search {
+  border-collapse: collapse;
+}
+
+.word-search td {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  text-align: center;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: lightblue !important;
+}
+
+.match {
+  background-color: lightgreen !important;
+}
+
+.letter {
+  font-weight: bold;
+  color: #333;
+}
+
+.background {
+  background-color: #fff1e6;
+}
+
+.word {
+  background-color: #eddcd2;
+  color: #333;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
